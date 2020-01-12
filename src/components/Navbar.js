@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { handleLogout } from "../actions/userActionsCreator";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-const logo = require('../res/images/issue_tracker.png')
 
 class Navbar extends Component {
   logout = () => {

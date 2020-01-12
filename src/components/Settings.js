@@ -21,7 +21,8 @@ class Settings extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.dispatch(handleUpdate({ ...this.state }));
+    const user = this.props.user;
+    this.props.dispatch(handleUpdate({ ...user, ...this.state }));
     this.props.history.push("/");
   };
 
@@ -88,7 +89,7 @@ class Settings extends Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="passwordInput" >Password</label>
+            <label htmlFor="passwordInput">Password</label>
             <input
               type="password"
               className="form-control"

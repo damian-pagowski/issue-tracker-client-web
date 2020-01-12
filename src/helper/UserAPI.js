@@ -33,10 +33,14 @@ const api = {
     }).then(response => response.json());
   },
   update(user) {
-    return fetch(`${BASE_URL}/users/${user.id}`, {
+    console.log("user update: " + JSON.stringify(user));
+    const id = user.id || user._id
+    const token = user.token;
+    console.log("update user > token > " + token)
+    return fetch(`${BASE_URL}/users/${id}`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
