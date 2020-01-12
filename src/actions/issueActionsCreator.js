@@ -51,17 +51,13 @@ export function handleReceiveIssues(page, limit, search) {
     dispatch(showLoading());
     const user = getState().user;
     console.log("receiving issues: " + JSON.stringify(user));
-    if (!(user && user.token && user.defaultProject)) {
-      console.log("receiving issues: " + JSON.stringify(user));
-
-      throw new Error(user);
-    }
+    const params = {
+      page,
+      limit,
+      ...search,
+    };
     api
-      .getIssues(user.defaultProject, user.token, {
-        page,
-        limit,
-        ...search,
-      })
+      .getIssues(user.defaultProject, user.token, params)
       .then(data => {
         dispatch(receiveIssues(data));
         dispatch(hideLoading());
