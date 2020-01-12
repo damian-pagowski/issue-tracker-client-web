@@ -24,13 +24,12 @@ const api = {
 
   logout(user) {
     return fetch(`${BASE_URL}/users/logout`, {
-      method: "POST",
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ email: user.email }),
     }).then(response => response.json());
   },
   update(user) {
