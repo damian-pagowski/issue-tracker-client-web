@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
+  exchangeCodeForToken,
   handleLogin,
   handleRestoreSession,
 } from "../actions/userActionsCreator";
@@ -30,12 +31,14 @@ class Login extends Component {
   };
 
   componentDidMount() {
+    const code = (this.props.location.search.match(/code=([^&]+)/) || [])[1];
+    if (code) {
+      this.props.dispatch(exchangeCodeForToken(code));
+    }
+
     const token = localStorage.getItem(API_TOKEN);
     const id = localStorage.getItem(USER_ID);
     const email = localStorage.getItem(USER_EMAIL);
-    console.log("login > token: " + token)
-    console.log("login > id: " + id)
-    console.log("login > email: " + email)
     if (token && id && email) {
       this.props.dispatch(handleRestoreSession({ id, token, email }));
     }
@@ -79,6 +82,14 @@ class Login extends Component {
             <button type="submit" className="btn btn-primary">
               Login
             </button>
+            <a
+              href={
+                "https://github.com/login/oauth/authorize?client_id=7ffbe14966ece454891b"
+              }
+              className="btn btn-primary ml-1"
+            >
+              <i className="fa fa-github" />
+            </a>
             <span className="float-right">
               <Link to="/register">Create an account</Link>
             </span>

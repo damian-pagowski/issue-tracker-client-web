@@ -22,6 +22,17 @@ const api = {
     }).then(response => response.json());
   },
 
+  exchangeCodeForToken(code) {
+    return fetch(`${BASE_URL}/auth/github/token`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code }),
+    }).then(response => response.json());
+  },
+
   logout(user) {
     return fetch(`${BASE_URL}/users/logout`, {
       method: "GET",
@@ -33,10 +44,8 @@ const api = {
     }).then(response => response.json());
   },
   update(user) {
-    console.log("user update: " + JSON.stringify(user));
-    const id = user.id || user._id
+    const id = user.id || user._id;
     const token = user.token;
-    console.log("update user > token > " + token)
     return fetch(`${BASE_URL}/users/${id}`, {
       method: "PUT",
       headers: {

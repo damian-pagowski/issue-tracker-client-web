@@ -24,6 +24,24 @@ export function handleLogout() {
   };
 }
 
+export function exchangeCodeForToken(token) {
+  return dispatch => {
+    dispatch(showLoading());
+
+    api.exchangeCodeForToken(token).then(data => {
+      localStorage.setItem(USER_ID, data.id);
+      localStorage.setItem(API_TOKEN, data.token);
+      localStorage.setItem(USER_EMAIL, data.email);
+      dispatch(logIn(data));
+      dispatch(handleGetUserDetails());
+      dispatch(handleRetrieveAvailableProjects());
+      dispatch(handleReceiveIssues());
+      dispatch(handleGetSettings());
+      dispatch(hideLoading());
+    });
+  };
+}
+
 export function handleUpdate(user) {
   return dispatch => {
     api
@@ -36,7 +54,7 @@ export function handleUpdate(user) {
 function handleGetUserDetails() {
   return (dispatch, getState) => {
     const user = getState().user;
-    console.log('handleGetUserDetails > user' + JSON.stringify(user))
+    console.log("handleGetUserDetails > user" + JSON.stringify(user));
     api
       .getUserDetails(user)
       .then(user => dispatch(update(user)))

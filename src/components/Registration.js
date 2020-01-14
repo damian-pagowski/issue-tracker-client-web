@@ -7,6 +7,7 @@ class Registration extends Component {
   state = {
     email: "",
     password: "",
+    displayName: "",
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -14,6 +15,7 @@ class Registration extends Component {
     this.setState({
       email: "",
       password: "",
+      displayName: "",
     });
     this.props.history.push("/");
   };
@@ -29,12 +31,22 @@ class Registration extends Component {
           <form className="mt-2" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <input
+                name="displayName"
+                type="text"
+                className="form-control"
+                id="inputUsername"
+                placeholder="Your Name"
+                value={this.state.username}
+                onChange={this.handleOnChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
                 name="email"
                 type="email"
                 className="form-control"
                 id="inputEmail"
-                aria-describedby="emailHelp"
-                placeholder="Email"
+                placeholder="Your Email"
                 value={this.state.email}
                 onChange={this.handleOnChange}
               />
